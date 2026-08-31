@@ -9,6 +9,7 @@ Route::get('/', function () {
 });
 
 Route::get('/listings', [ListingController::class, 'index'])->name('listings.index');
+Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -23,19 +23,36 @@ class ListingSeeder extends Seeder
 
         $makes = array_keys($models);
 
+        $firstNames = ['Jānis', 'Māris', 'Andris', 'Pēteris', 'Oskars', 'Rolands', 'Kaspars', 'Ivars', 'Artūrs', 'Normunds', 'Guntars', 'Aivars', 'Edgars', 'Mārtiņš', 'Kristaps', 'Rihards', 'Valdis', 'Juris', 'Gatis', 'Reinis'];
+        $lastNames = ['Bērziņš', 'Kalniņš', 'Ozoliņš', 'Liepiņš', 'Krūmiņš', 'Balodis', 'Zariņš', 'Ozols', 'Vītols', 'Pētersons', 'Grīnbergs', 'Jansons', 'Krastiņš', 'Sproģis', 'Lapiņš', 'Rudzītis', 'Puriņš', 'Zālītis', 'Celmiņš', 'Avotiņš'];
+
+
         for ($i = 0; $i < 20; $i++) {
             $make = $makes[array_rand($makes)];
             $model = $models[$make][array_rand($models[$make])];
 
+            $firstName = $firstNames[$i];
+            $lastName = $lastNames[$i];
+            $email = strtolower($firstName . '.' . $lastName) . $i . '@gmail.com';
+
+            $user = User::create([
+                'name' => $firstName . ' ' . $lastName,
+                'email' => $email,
+                'password' => bcrypt('password'),
+            ]);
+
             Listing::create([
-                'user_id' => 1,
+                'user_id' => $user->id,
                 'make' => $make,
                 'model' => $model,
                 'year' => rand(2015, 2023),
                 'price' => rand(5000, 50000),
                 'fuel_type' => $fuelTypes[array_rand($fuelTypes)],
                 'mileage' => rand(10000, 200000),
-                'description' => 'Labi uzturēts ' . $make . ' ' . $model . ', serviss veikts regulāri.',
+                'description' => 'Labi uzturēts ' . $make . ' ' . $model . ', serviss veikts regulāri. Bez avārijām, pirmais īpašnieks Latvijā.',
+                'vin' => '1HGBH41JXMN109' . str_pad((string) $i, 3, '0', STR_PAD_LEFT),
+                'car_number' => chr(65 + ($i % 23)) . 'B-' . rand(1000, 9999),
+                'phone' => '+371 2' . str_pad((string) rand(10000000, 99999999), 8, '0', STR_PAD_LEFT),
             ]);
         }
     }

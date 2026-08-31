@@ -19,9 +19,9 @@
                     <p class="text-gray-700">Degviela: {{ $listing->fuel_type }}</p>
                     <p class="text-gray-700">Nobraukums: {{ $listing->mileage }} km</p>
 
-                    <button class="mt-auto mt-4 bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">
+                    <a href="{{ route('listings.show', $listing) }}" class="mt-auto mt-4 block text-center bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-700">
                         Skatīt
-                    </button>
+                    </a>
                 </div>
             @endforeach
         </div>
