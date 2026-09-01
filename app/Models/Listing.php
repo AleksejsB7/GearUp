@@ -24,6 +24,8 @@ class Listing extends Model
         'vin',
         'car_number',
         'phone',
+        'vehicle_type',
+        'engine_volume',
     ];
 
     protected function casts(): array
@@ -32,6 +34,7 @@ class Listing extends Model
             'price' => 'decimal:2',
             'year' => 'integer',
             'mileage' => 'integer',
+            'engine_volume' => 'decimal:1',
         ];
     }
 

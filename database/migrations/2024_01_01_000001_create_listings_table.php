@@ -17,6 +17,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->string('fuel_type');
             $table->unsignedInteger('mileage');
+            $table->string('vehicle_type')->default('auto');
+            $table->decimal('engine_volume', 3, 1)->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
 

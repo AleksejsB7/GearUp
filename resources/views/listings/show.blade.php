@@ -15,6 +15,9 @@
         <div class="mt-6 space-y-2 text-gray-700">
             <p><strong>Cena:</strong> €{{ $listing->price }}</p>
             <p><strong>Degvielas tips:</strong> {{ $listing->fuel_type }}</p>
+            @if ($listing->engine_volume !== null)
+                <p><strong>Motora tilpums:</strong> {{ $listing->engine_volume }} L</p>
+            @endif
             <p><strong>Nobraukums:</strong> {{ $listing->mileage }} km</p>
             <p><strong>VIN kods:</strong> {{ $listing->vin }}</p>
             <p><strong>Reģistrācijas numurs:</strong> {{ $listing->car_number }}</p>
