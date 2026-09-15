@@ -25,7 +25,7 @@
     <div class="max-w-6xl mx-auto px-4 py-10">
         <div class="flex items-center justify-between mb-8">
             <h1 class="text-3xl font-bold">Mani sludinājumi</h1>
-            <button type="button" class="px-4 py-2 text-sm rounded bg-gray-900 text-white hover:bg-gray-700">+ Pievienot sludinājumu</button>
+            <a href="{{ route('listings.create') }}" class="px-4 py-2 text-sm rounded bg-gray-900 text-white hover:bg-gray-700">+ Pievienot sludinājumu</a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
