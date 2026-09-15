@@ -30,4 +30,13 @@ class ListingController extends Controller
     {
         return view('listings.show', compact('listing'));
     }
+
+    public function myListings()
+    {
+        $listings = auth()->user()
+            ->listings()
+            ->paginate(12);
+
+        return view('listings.my-listings', compact('listings'));
+    }
 }
