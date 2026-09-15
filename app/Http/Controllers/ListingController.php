@@ -58,6 +58,15 @@ class ListingController extends Controller
         return redirect()->route('my-listings');
     }
 
+    public function destroy(Listing $listing)
+    {
+        abort_unless($listing->user_id === auth()->id(), 403);
+
+        $listing->delete();
+
+        return redirect()->route('my-listings');
+    }
+
     public function myListings()
     {
         $listings = auth()->user()

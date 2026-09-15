@@ -45,7 +45,11 @@
 
                     <div class="mt-4 flex gap-3">
                         <button type="button" disabled class="flex-1 block text-center border border-gray-300 text-gray-400 px-4 py-2 rounded">Rediģēt</button>
-                        <button type="button" disabled class="flex-1 block text-center border border-red-300 text-red-400 px-4 py-2 rounded">Dzēst</button>
+                        <form method="POST" action="{{ route('listings.destroy', $listing) }}" class="flex-1">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="w-full block text-center border border-red-300 text-red-600 px-4 py-2 rounded hover:bg-red-50">Dzēst</button>
+                        </form>
                     </div>
                 </div>
             @empty
