@@ -8,7 +8,7 @@
 </head>
 <body class="bg-white text-gray-900 antialiased">
     <div class="max-w-3xl mx-auto px-4 py-10">
-        <a href="{{ route('listings.index') }}" class="text-sm text-gray-600 hover:underline">&larr; Atpakaļ</a>
+        <a href="{{ route('listings.index') }}" class="text-sm text-gray-600 hover:underline">&larr; Atpakaļ uz sludinājumiem</a>
 
         <h1 class="text-3xl font-bold mt-4">{{ $listing->make }} {{ $listing->model }} ({{ $listing->year }})</h1>
 

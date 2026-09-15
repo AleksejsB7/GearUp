@@ -58,6 +58,36 @@ class ListingController extends Controller
         return redirect()->route('my-listings');
     }
 
+    public function edit(Listing $listing)
+    {
+        abort_unless($listing->user_id === auth()->id(), 403);
+
+        return view('listings.edit', compact('listing'));
+    }
+
+    public function update(Request $request, Listing $listing)
+    {
+        abort_unless($listing->user_id === auth()->id(), 403);
+
+        $data = $request->validate([
+            'make'           => ['required', 'string', 'max:255'],
+            'model'          => ['required', 'string', 'max:255'],
+            'year'           => ['required', 'integer', 'min:1900', 'max:' . (date('Y') + 1)],
+            'price'          => ['required', 'numeric', 'min:0'],
+            'fuel_type'      => ['required', 'in:benzīns,dīzelis,elektro,hibrīds'],
+            'mileage'        => ['required', 'integer', 'min:0'],
+            'engine_volume'  => ['nullable', 'numeric', 'min:0'],
+            'vin'            => ['nullable', 'string', 'max:17'],
+            'car_number'     => ['nullable', 'string', 'max:20'],
+            'phone'          => ['nullable', 'string', 'max:30'],
+            'description'    => ['nullable', 'string'],
+        ]);
+
+        $listing->update($data);
+
+        return redirect()->route('my-listings');
+    }
+
     public function destroy(Listing $listing)
     {
         abort_unless($listing->user_id === auth()->id(), 403);

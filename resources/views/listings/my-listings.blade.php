@@ -23,7 +23,9 @@
         </div>
     </nav>
     <div class="max-w-6xl mx-auto px-4 py-10">
-        <div class="flex items-center justify-between mb-8">
+        <a href="{{ route('listings.index') }}" class="text-sm text-gray-600 hover:underline">&larr; Atpakaļ uz sludinājumiem</a>
+
+        <div class="flex items-center justify-between mt-4 mb-8">
             <h1 class="text-3xl font-bold">Mani sludinājumi</h1>
             <a href="{{ route('listings.create') }}" class="px-4 py-2 text-sm rounded bg-gray-900 text-white hover:bg-gray-700">+ Pievienot sludinājumu</a>
         </div>
@@ -44,7 +46,7 @@
                     <p class="text-gray-700">Nobraukums: {{ $listing->mileage }} km</p>
 
                     <div class="mt-4 flex gap-3">
-                        <button type="button" disabled class="flex-1 block text-center border border-gray-300 text-gray-400 px-4 py-2 rounded">Rediģēt</button>
+                        <a href="{{ route('listings.edit', $listing) }}" class="flex-1 block text-center border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-100">Rediģēt</a>
                         <form method="POST" action="{{ route('listings.destroy', $listing) }}" class="flex-1">
                             @csrf
                             @method('DELETE')
