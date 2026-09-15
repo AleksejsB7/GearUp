@@ -7,6 +7,24 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-white text-gray-900 antialiased">
+    <nav class="bg-gray-900 text-white">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <span class="text-lg font-bold">GearUp</span>
+            <div class="flex items-center gap-4">
+                @guest
+                    <a href="{{ route('login') }}" class="text-sm hover:underline">Pieteikties</a>
+                    <a href="{{ route('register') }}" class="text-sm hover:underline">Reģistrēties</a>
+                @endguest
+                @auth
+                    <span class="text-sm">{{ Auth::user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="text-sm hover:underline">Iziet</button>
+                    </form>
+                @endauth
+            </div>
+        </div>
+    </nav>
     <div class="max-w-6xl mx-auto px-4 py-10">
         <h1 class="text-3xl font-bold mb-8">Sludinājumi</h1>
 
