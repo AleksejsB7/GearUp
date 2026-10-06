@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ListingController extends Controller
 {
@@ -21,6 +22,7 @@ class ListingController extends Controller
             ->when(request('mileage_to'), fn ($q, $km) => $q->where('mileage', '<=', $km))
             ->when(request('engine_from'), fn ($q, $vol) => $q->where('engine_volume', '>=', $vol))
             ->when(request('engine_to'), fn ($q, $vol) => $q->where('engine_volume', '<=', $vol))
+            ->with(['images' => fn ($q) => $q->orderBy('id')])
             ->paginate(12)
             ->withQueryString();
 
@@ -51,9 +53,17 @@ class ListingController extends Controller
             'car_number'     => ['nullable', 'string', 'max:20'],
             'phone'          => ['nullable', 'string', 'max:30'],
             'description'    => ['nullable', 'string'],
+            'images'         => ['nullable', 'array', 'max:6'],
+            'images.*'       => ['image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
         ]);
 
-        auth()->user()->listings()->create($data);
+        $listing = auth()->user()->listings()->create(Arr::except($data, ['images']));
+
+        foreach ($request->file('images', []) as $image) {
+            $listing->images()->create([
+                'image_path' => $image->store('listings', 'public'),
+            ]);
+        }
 
         return redirect()->route('my-listings');
     }
@@ -101,6 +111,7 @@ class ListingController extends Controller
     {
         $listings = auth()->user()
             ->listings()
+            ->with(['images' => fn ($q) => $q->orderBy('id')])
             ->paginate(12);
 
         return view('listings.my-listings', compact('listings'));

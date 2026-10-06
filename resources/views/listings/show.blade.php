@@ -12,6 +12,20 @@
 
         <h1 class="text-3xl font-bold mt-4">{{ $listing->make }} {{ $listing->model }} ({{ $listing->year }})</h1>
 
+        <div class="mt-6">
+            @if ($listing->images->isNotEmpty())
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    @foreach ($listing->images as $image)
+                        <img src="{{ Storage::url($image->image_path) }}"
+                             alt="{{ $listing->make }} {{ $listing->model }} — {{ $loop->iteration }}"
+                             class="w-full h-56 object-cover rounded-lg border border-gray-200">
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-500 border border-gray-200 rounded-lg p-6 text-center">Nav bilžu</p>
+            @endif
+        </div>
+
         <div class="mt-6 space-y-2 text-gray-700">
             <p><strong>Cena:</strong> €{{ $listing->price }}</p>
             <p><strong>Degvielas tips:</strong> {{ $listing->fuel_type }}</p>

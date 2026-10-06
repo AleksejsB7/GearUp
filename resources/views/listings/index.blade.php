@@ -103,7 +103,16 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($listings as $listing)
+                @php($thumb = $listing->images->first())
                 <div class="border border-gray-200 rounded-lg p-5 flex flex-col">
+                    @if ($thumb)
+                        <img src="{{ Storage::url($thumb->image_path) }}" alt="{{ $listing->make }} {{ $listing->model }}" class="mb-4 w-full h-40 object-cover rounded">
+                    @else
+                        <div class="mb-4 w-full h-40 rounded bg-gray-200 flex items-center justify-center text-sm text-gray-500">
+                            Nav bildes
+                        </div>
+                    @endif
+
                     <h2 class="text-xl font-semibold">{{ $listing->make }} {{ $listing->model }}</h2>
                     <p class="mt-2 text-gray-700">
                         {{ $listing->vehicle_type === 'motocikls' ? 'Motocikls' : 'Auto' }}

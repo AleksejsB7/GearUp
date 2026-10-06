@@ -27,7 +27,7 @@
 
         <h1 class="text-3xl font-bold mt-4 mb-8">Pievienot sludinājumu</h1>
 
-        <form method="POST" action="{{ route('listings.store') }}" class="space-y-6">
+        <form method="POST" action="{{ route('listings.store') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -102,6 +102,14 @@
                 <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Apraksts</label>
                 <textarea name="description" id="description" rows="4" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">{{ old('description') }}</textarea>
                 @error('description') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
+            </div>
+
+            <div>
+                <label for="images" class="block text-sm font-medium text-gray-700 mb-1">Bildes (līdz 6)</label>
+                <input type="file" name="images[]" id="images" multiple accept="image/jpeg,image/png,image/webp" class="w-full border border-gray-300 rounded px-3 py-2 text-sm">
+                <p class="text-xs text-gray-500 mt-1">JPG, PNG vai WEBP, katra līdz 4 MB.</p>
+                @error('images') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
+                @error('images.*') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
             </div>
 
             <div class="flex items-center justify-end gap-3">
