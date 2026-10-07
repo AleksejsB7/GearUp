@@ -12,6 +12,19 @@
 
         <h1 class="text-3xl font-bold mt-4">{{ $listing->make }} {{ $listing->model }} ({{ $listing->year }})</h1>
 
+        @auth
+            <form method="POST" action="{{ $isSaved ? route('listings.unsave', $listing) : route('listings.save', $listing) }}" class="mt-4">
+                @csrf
+                @if ($isSaved)
+                    @method('DELETE')
+                @endif
+
+                <button type="submit" class="px-5 py-2 text-sm rounded {{ $isSaved ? 'border border-gray-300 text-gray-700 hover:bg-gray-100' : 'bg-gray-900 text-white hover:bg-gray-700' }}">
+                    {{ $isSaved ? 'Noņemt no saglabātajiem' : 'Saglabāt' }}
+                </button>
+            </form>
+        @endauth
+
         <div class="mt-6">
             @if ($listing->images->isNotEmpty())
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

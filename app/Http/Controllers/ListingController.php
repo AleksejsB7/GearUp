@@ -31,7 +31,36 @@ class ListingController extends Controller
 
     public function show(Listing $listing)
     {
-        return view('listings.show', compact('listing'));
+        $isSaved = auth()->check()
+            && $listing->savedByUsers()->whereKey(auth()->id())->exists();
+
+        return view('listings.show', compact('listing', 'isSaved'));
+    }
+
+    public function save(Listing $listing)
+    {
+        auth()->user()->savedListings()->syncWithoutDetaching($listing->id);
+
+        return back();
+    }
+
+    public function unsave(Listing $listing)
+    {
+        auth()->user()->savedListings()->detach($listing->id);
+
+        return back();
+    }
+
+    public function saved()
+    {
+        $listings = auth()->user()
+            ->savedListings()
+            ->with(['images' => fn ($q) => $q->orderBy('id')])
+            ->orderByDesc('saved_listings.created_at')
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('listings.saved', compact('listings'));
     }
 
     public function create()

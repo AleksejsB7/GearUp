@@ -14,6 +14,7 @@
                 @auth
                     <span class="text-sm">{{ Auth::user()->name }}</span>
                     <a href="{{ route('my-listings') }}" class="text-sm hover:underline">Mani sludinājumi</a>
+                    <a href="{{ route('saved') }}" class="text-sm hover:underline">Saglabātie</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="text-sm hover:underline">Iziet</button>

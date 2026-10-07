@@ -17,6 +17,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/listings/{listing}', [ListingController::class, 'update'])->name('listings.update');
     Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->name('listings.destroy');
     Route::get('/my-listings', [ListingController::class, 'myListings'])->name('my-listings');
+    Route::get('/saved', [ListingController::class, 'saved'])->name('saved');
+    Route::post('/listings/{listing}/save', [ListingController::class, 'save'])->name('listings.save');
+    Route::delete('/listings/{listing}/unsave', [ListingController::class, 'unsave'])->name('listings.unsave');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
