@@ -22,7 +22,7 @@ class ListingController extends Controller
             ->when(request('mileage_to'), fn ($q, $km) => $q->where('mileage', '<=', $km))
             ->when(request('engine_from'), fn ($q, $vol) => $q->where('engine_volume', '>=', $vol))
             ->when(request('engine_to'), fn ($q, $vol) => $q->where('engine_volume', '<=', $vol))
-            ->with(['images' => fn ($q) => $q->orderBy('id')])
+            ->with(['images' => fn ($q) => $q->orderBy('id'), 'user'])
             ->paginate(12)
             ->withQueryString();
 
@@ -55,7 +55,7 @@ class ListingController extends Controller
     {
         $listings = auth()->user()
             ->savedListings()
-            ->with(['images' => fn ($q) => $q->orderBy('id')])
+            ->with(['images' => fn ($q) => $q->orderBy('id'), 'user'])
             ->orderByDesc('saved_listings.created_at')
             ->paginate(12)
             ->withQueryString();
@@ -140,7 +140,7 @@ class ListingController extends Controller
     {
         $listings = auth()->user()
             ->listings()
-            ->with(['images' => fn ($q) => $q->orderBy('id')])
+            ->with(['images' => fn ($q) => $q->orderBy('id'), 'user'])
             ->paginate(12);
 
         return view('listings.my-listings', compact('listings'));

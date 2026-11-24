@@ -12,7 +12,7 @@
             <span class="text-lg font-bold">GearUp</span>
             <div class="flex items-center gap-4">
                 @auth
-                    <span class="text-sm">{{ Auth::user()->name }}</span>
+                    <a href="{{ route('profile.show', Auth::user()) }}" class="text-sm hover:underline">{{ Auth::user()->name }}</a>
                     <a href="{{ route('my-listings') }}" class="text-sm hover:underline">Mani sludinājumi</a>
                     <a href="{{ route('saved') }}" class="text-sm hover:underline">Saglabātie</a>
                     <form method="POST" action="{{ route('logout') }}">
@@ -46,6 +46,7 @@
                     @endif
 
                     <h2 class="text-xl font-semibold">{{ $listing->make }} {{ $listing->model }}</h2>
+                    <p class="text-gray-700">Pārdevējs: <a href="{{ route('profile.show', $listing->user) }}" class="hover:underline">{{ $listing->user->name }}</a></p>
                     <p class="mt-2 text-gray-700">
                         {{ $listing->vehicle_type === 'motocikls' ? 'Motocikls' : 'Auto' }}
                         @if ($listing->engine_volume)
