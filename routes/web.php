@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
 
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

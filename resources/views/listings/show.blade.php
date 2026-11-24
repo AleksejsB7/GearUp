@@ -57,7 +57,7 @@
         </div>
 
         <div class="mt-8 pt-4 border-t border-gray-200 text-gray-700">
-            <p><strong>Pārdevējs:</strong> {{ $listing->user->name }}</p>
+            <p><strong>Pārdevējs:</strong> <a href="{{ route('profile.show', $listing->user) }}" class="text-gray-700 hover:underline">{{ $listing->user->name }}</a></p>
             <p><strong>Publicēts:</strong> {{ $listing->created_at->format('d.m.Y') }}</p>
         </div>
     </div>
